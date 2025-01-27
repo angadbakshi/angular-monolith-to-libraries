@@ -126,7 +126,7 @@ src/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/angular-monolith-to-libraries.git
+git clone https://github.com/angadbakshi/angular-monolith-to-libraries.git
 cd angular-monolith-to-libraries
 ```
 
@@ -254,5 +254,3 @@ If you encounter any issues or have questions:
 2. Adding detailed module analysis reports
 3. Creating the configuration preset system
 4. Adding validation and error handling
-
-[Rest of the README remains the same...]
