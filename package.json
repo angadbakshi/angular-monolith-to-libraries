@@ -1,0 +1,103 @@
+{
+  "name": "angular-monolith-to-libraries",
+  "displayName": "angular-monolith-to-libraries",
+  "description": "Convert a monolithic Angular app into multiple private Angular libraries.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Angular Monolith to Libraries",
+      "properties": {
+        "angularMonolithToLibraries.libraries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the library"
+              },
+              "pattern": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Glob patterns to match files for this library"
+              }
+            }
+          },
+          "default": [
+            {
+              "name": "shared",
+              "pattern": ["shared/**"]
+            },
+            {
+              "name": "core",
+              "pattern": ["core/**"]
+            },
+            {
+              "name": "feature",
+              "pattern": ["feature/**"]
+            }
+          ],
+          "description": "Configure libraries to create and their file patterns"
+        },
+        "angularMonolithToLibraries.sourceRoot": {
+          "type": "string",
+          "default": "src/app",
+          "description": "Root directory of the Angular source code"
+        },
+        "angularMonolithToLibraries.createBackup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Create a backup before converting"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.96.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.16.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "react-dnd": "^14.0.0",
+    "react-dnd-html5-backend": "^14.0.0",
+    "recharts": "^2.0.0",
+    "@angular-devkit/core": "^19.1.4",
+    "@angular-devkit/schematics": "^19.1.4",
+    "@angular/cli": "^19.1.4",
+    "fs-extra": "^11.3.0",
+    "glob": "^11.0.1"
+  }
+}
