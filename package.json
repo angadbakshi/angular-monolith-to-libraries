@@ -2,7 +2,24 @@
   "name": "angular-monolith-to-libraries",
   "displayName": "angular-monolith-to-libraries",
   "description": "Convert a monolithic Angular app into multiple private Angular libraries.",
-  "version": "0.0.1",
+  "version": "1.0.1",
+  "publisher": "angadbakshi",
+  "license": "MIT",
+  "private": false,
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
+  "badges": [],
+  "icon": "media/icons/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angadbakshi/angular-monolith-to-libraries.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angadbakshi/angular-monolith-to-libraries/issues"
+  },
+  "homepage": "https://github.com/angadbakshi/angular-monolith-to-libraries#readme",
   "engines": {
     "vscode": "^1.96.0"
   },

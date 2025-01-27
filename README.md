@@ -176,6 +176,10 @@ If you encounter any issues or have questions:
 - Interactive library configuration UI
 - Project analysis features
 - Automated conversion process
+  
+## [1.0.1] - 2024-01-26
+### Added
+- Icon
 
 ## 🚧 Work in Progress
 
