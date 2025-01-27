@@ -2,7 +2,7 @@
   "name": "angular-monolith-to-libraries",
   "displayName": "angular-monolith-to-libraries",
   "description": "Convert a monolithic Angular app into multiple private Angular libraries.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "angadbakshi",
   "license": "MIT",
   "private": false,
@@ -24,14 +24,57 @@
     "vscode": "^1.96.0"
   },
   "categories": [
+    "Programming Languages",
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "angular-monolith-to-libraries.convert",
+        "title": "Angular: Convert Monolith to Libraries",
+        "category": "Angular Monolith"
+      },
+      {
+        "command": "angular-monolith-to-libraries.configure",
+        "title": "Angular: Configure Libraries",
+        "category": "Angular Monolith"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "angular-monolith-to-libraries.convert"
+        },
+        {
+          "command": "angular-monolith-to-libraries.configure"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "angular-monolith-to-libraries.convert",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "angular-monolith-to-libraries.convert",
+        "key": "ctrl+shift+alt+l",
+        "mac": "cmd+shift+alt+l"
+      }
+    ],
     "configuration": {
       "title": "Angular Monolith to Libraries",
       "properties": {
+        "angularMonolithToLibraries.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the extension"
+        },
         "angularMonolithToLibraries.libraries": {
           "type": "array",
           "items": {

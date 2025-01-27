@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import { convertToLibraries } from './refactor';
 import { validateAngularProject, checkAngularCLI, createProjectBackup } from './validation-utils';
 import { getConfiguration } from './config-types';
@@ -6,7 +8,12 @@ import { getConfiguration } from './config-types';
 export async function activate(context: vscode.ExtensionContext) {
     console.log('Extension "angular-monolith-to-libraries" is now active!');
 
-    let disposable = vscode.commands.registerCommand('angular-monolith-to-libraries.convert', async () => {
+    // Check if workspace has angular.json
+    const hasAngularJson = await checkForAngularJson();
+    await vscode.commands.executeCommand('setContext', 'workspaceHasAngularJson', hasAngularJson);
+
+    // Register the convert command
+    let convertCommand = vscode.commands.registerCommand('angular-monolith-to-libraries.convert', async () => {
         try {
             // Check Angular CLI first
             const cliCheck = await checkAngularCLI();
@@ -87,5 +94,35 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     });
 
-    context.subscriptions.push(disposable);
+    // Register the configure command
+    let configureCommand = vscode.commands.registerCommand('angular-monolith-to-libraries.configure', async () => {
+        if (!hasAngularJson) {
+            vscode.window.showErrorMessage('No Angular project detected in the workspace.');
+            return;
+        }
+        vscode.window.showInformationMessage('Configuring Angular Libraries...');
+        // Your configuration UI implementation
+    });
+
+    context.subscriptions.push(convertCommand, configureCommand);
 }
+
+async function checkForAngularJson(): Promise<boolean> {
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (!workspaceFolders) {
+        return false;
+    }
+
+    for (const folder of workspaceFolders) {
+        const angularJsonPath = path.join(folder.uri.fsPath, 'angular.json');
+        try {
+            await fs.access(angularJsonPath);
+            return true;
+        } catch {
+            continue;
+        }
+    }
+    return false;
+}
+
+export function deactivate() {}
